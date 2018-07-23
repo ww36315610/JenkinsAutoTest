@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+
+	<test name="Api_Select">
+		<classes>
+			<!-- 调用@Test执行类 -->
+			<class name="finup.feather.utils.controller.HttpRequest" />
+			<methods>
+				<include name="beginMongo"></include>
+			</methods>
+		</classes>
+
+		<!--<classes>-->
+			<!--<class name="com.cif.restfull_jenkins.AssertClass" />-->
+			<!--<methods>-->
+				<!--<include name="method"></include>-->
+			<!--</methods>-->
+		<!--</classes>-->
+	</test>
+</suite>

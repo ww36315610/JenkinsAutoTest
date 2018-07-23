@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+        channel="channel-oplog"
+        name="oplog trans Plug-in"
+        provider-name="xiong">
+    <store pk="_id" applyNoStr="requestId">
+		<cf name="basic_info" target="UserWrapper" cifid="_id,_class->className,idNo->idCardNum,idNo">
+			<column hbaseCfName="lendRepayRecordVoList" jsonName="lendRepayRecordVoList"/>
+			<column hbaseCfName="fetchBankCardWrapper" jsonName="fetchBankCardWrapper"/>
+        </cf>
+		<cf name="device_info"  target="DevicesWrapper" cifid="_id,_class->className,idNo->idCardNum">
+            <column hbaseCfName="device_info" jsonName="result"/>
+        </cf>		
+		
+    </store>
+</plugin>
