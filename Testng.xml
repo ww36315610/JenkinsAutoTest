@@ -6,7 +6,7 @@
 			<!-- 调用@Test执行类 -->
 			<class name="finup.feather.utils.controller.HttpRequest" />
 			<methods>
-				<include name="beginMongo"></include>
+				<include name="runMethod"></include>
 			</methods>
 		</classes>
 
