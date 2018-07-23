@@ -6,6 +6,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StringUtils;
+import org.testng.collections.Lists;
+import org.testng.collections.Maps;
 
 import java.io.*;
 import java.util.List;
