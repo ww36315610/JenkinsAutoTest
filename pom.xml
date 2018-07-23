@@ -77,11 +77,11 @@
             <version>6.9.4</version>
             <!-- <scope>test</scope> -->
         </dependency>
-        <dependency>
-            <groupId>cif-bumble</groupId>
-            <artifactId>canal-analyzer</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>cif-bumble</groupId>-->
+            <!--<artifactId>canal-analyzer</artifactId>-->
+            <!--<version>1.1.2-SNAPSHOT</version>-->
+        <!--</dependency>-->
         <!--Excell-->
         <dependency>
             <groupId>org.apache.poi</groupId>
