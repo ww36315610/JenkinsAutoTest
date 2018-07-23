@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.testng.collections.Maps;
 
+
 import java.util.Map;
 
 public class Oauth {
@@ -26,7 +27,7 @@ public class Oauth {
 
 	//	根据jdbc.properties文件给获取相应的oauth
 	public static Map<String, Object> headerPut(OAuth2AccessToken token) {
-		Map<String, Object> header = com.google.common.collect.Maps.newHashMap();
+		Map<String, Object> header = Maps.newHashMap();
 		header.put("Accept", "*/*");
 		header.put("Content-Type", "application/json;charset=UTF-8");
 		header.put("Authorization", String.format("%s %s", token.getTokenType(), token.getValue()));
