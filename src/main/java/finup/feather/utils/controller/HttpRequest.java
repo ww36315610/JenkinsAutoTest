@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import java.util.Map;
 
 public class HttpRequest extends ConfigTools {
-    public static final String swithMethod = "pre";
+    public static final String swithMethod = "test";
     public static final String httpUrl;
     public static final String oauthURL;
     public static final String clientId;
@@ -23,9 +23,9 @@ public class HttpRequest extends ConfigTools {
 
     static{
         httpUrl = config.getString("cif_utc_rest."+swithMethod+".url")+"moxie";
-        oauthURL = config.getString("oauth_line_rest.oauth.url");
-        clientId = config.getString("oauth_line_rest.oauth.clientId ");
-        cientSecret = config.getString("oauth_line_rest.oauth.cientSecret");
+        oauthURL = config.getString("oauth_"+swithMethod+"_rest.oauth.url");
+        clientId = config.getString("oauth_"+swithMethod+"_rest.oauth.clientId ");
+        cientSecret = config.getString("oauth_"+swithMethod+"_rest.oauth.cientSecret");
         token = Oauth.getToken(oauthURL, clientId, cientSecret);
         header = Oauth.headerPut(token);
     }
