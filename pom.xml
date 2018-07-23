@@ -150,7 +150,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.cif.winds.test.Apache_cli_UTCS</mainClass>
+                                    <mainClass>finup.feather.utils.controller.HttpRequest</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
