@@ -6,6 +6,7 @@ import finup.feather.utils.http.HttpClientImp;
 import finup.feather.utils.http.Oauth;
 
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.Map;
@@ -29,6 +30,16 @@ public class HttpRequest extends ConfigTools {
         header = Oauth.headerPut(token);
     }
 
+
+    @BeforeTest
+    public void befor() {
+        System.out.println("-----------------------------钱站渠道-----------------------------\n");
+
+        System.out.println("-----------------------------卡牛渠道-----------------------------\n");
+
+        System.out.println("-----------------------------涅槃渠道-----------------------------\n");
+
+    }
 
     @Test
     public static void runMethod(){
