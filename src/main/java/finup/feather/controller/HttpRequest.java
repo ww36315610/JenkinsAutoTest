@@ -23,19 +23,17 @@ import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class HttpRequest extends ConfigTools {
-    public static String swithMethod = "pre";
-
-    public static final String fileCSV;
-
-    public static final String httpUrl;
-    public static final String oauthURL;
-    public static final String clientId;
-    public static final String cientSecret;
-    public static final String fileOut = "/Users/apple/Documents/linlin/";
-    public static final String resultMap = "resultMap";
+    private static String swithMethod = "pre";
+    private static final String fileCSV;
+    private static final String httpUrl;
+    private static final String oauthURL;
+    private static final String clientId;
+    private static final String cientSecret;
+    private static final String fileOut = "/Users/apple/Documents/linlin/";
+    private static final String resultMap = "resultMap";
     private static final String before = "api.finupgroup.com/cif-utc-rest-pre";
     private static final String after = "api.finupgroup.com/cif-utc-rest";
-    static HttpClientImp hci = new HttpClientImp();
+    HttpClientImp hci = new HttpClientImp();
     static OAuth2AccessToken token;
     static Map<String, Object> header;
 
@@ -49,46 +47,12 @@ public class HttpRequest extends ConfigTools {
         cientSecret = config.getString("oauth_" + swithMethod + "_rest.oauth.cientSecret");
         token = Oauth.getToken(oauthURL, clientId, cientSecret);
         header = Oauth.headerPut(token);
-
         fileCSV = "/Users/apple/Downloads/graylog-search-result-absolute-2018-04-17T00_00_00.000Z-2018-04-17T03_00_00.000Z.csv";
     }
 
 
-    @BeforeTest
-    public void befor() {
-        System.out.println("-----------------------------beforMethod-----------------------------\n");
-    }
-
-    @Test
-    public static void runMethod() {
-        String json = "{\"mkey\":\"user_id\",\"mvalue\":\"779bd7d4f9fc25d9f3824897d4734dd1\",\"tagName\":\"mo_account_age\",\"channelId\":\"3003\"}";
-        HttpClient client = new DefaultHttpClient();
-        JSONArray jsonArray = hci.postJsonArray(client, httpUrl, header, json);
-        System.out.println(jsonArray);
-
-
-    }
-
     public static List<String> getCase(String fileName) {
         return CsvReadTools.getDataFromCSV(fileName);
-    }
-
-    public static void httpRunner() {
-        ThreadPoolExecutor pool = ThreadPoolUtils.getThreadPoolExecutor();
-        List<String> listCase = getCase(fileCSV);
-        for (String jsonList : listCase) {
-            pool.execute(() -> {
-                long before = System.currentTimeMillis();
-                HttpClient client = new DefaultHttpClient();
-                String key = jsonList.split("###")[0];
-                String vaule = jsonList.split("###")[1];
-                System.out.println("11111:::" + String.valueOf(System.currentTimeMillis() - before));
-                String uurrll = httpUrl + key.substring(key.lastIndexOf("/") + 1);
-                JSONArray jsonArray = hci.postJsonArray(client, uurrll, header, vaule);
-                System.out.println("22222:::" + String.valueOf(System.currentTimeMillis() - before));
-                System.out.println(jsonArray);
-            });
-        }
     }
 
     int timePre = 0;
@@ -129,13 +93,36 @@ public class HttpRequest extends ConfigTools {
         }).start();
         }
 
-//        httpRunner();
-//        outCaseKeys();
-//        runMethod();
+//        hr.httpRunner();
+//        hr.outCaseKeys();
 
     }
 
-    public static void outCaseKeys() {
+
+
+
+
+
+
+    public void httpRunner() {
+        ThreadPoolExecutor pool = ThreadPoolUtils.getThreadPoolExecutor();
+        List<String> listCase = getCase(fileCSV);
+        for (String jsonList : listCase) {
+            pool.execute(() -> {
+                long before = System.currentTimeMillis();
+                HttpClient client = new DefaultHttpClient();
+                String key = jsonList.split("###")[0];
+                String vaule = jsonList.split("###")[1];
+                System.out.println("11111:::" + String.valueOf(System.currentTimeMillis() - before));
+                String uurrll = httpUrl + key.substring(key.lastIndexOf("/") + 1);
+                JSONArray jsonArray = hci.postJsonArray(client, uurrll, header, vaule);
+                System.out.println("22222:::" + String.valueOf(System.currentTimeMillis() - before));
+                System.out.println(jsonArray);
+            });
+        }
+    }
+
+    public void outCaseKeys() {
         Map<String, Object> keyMaps = Maps.newHashMap();
         Map<String, Object> valueMaps = Maps.newHashMap();
         List<String> listCase = getCase(fileCSV);
