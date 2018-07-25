@@ -25,6 +25,11 @@
             <artifactId>lombok</artifactId>
             <version>1.16.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
         <!--json -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -150,7 +155,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>finup.feather.utils.controller.HttpRequest</mainClass>
+                                    <mainClass>finup.feather.controller.HttpRequest</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

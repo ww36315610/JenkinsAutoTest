@@ -4,7 +4,7 @@
 	<test name="Api_Select">
 		<classes>
 			<!-- 调用@Test执行类 -->
-			<class name="finup.feather.utils.controller.HttpRequest" />
+			<class name="finup.feather.controller.HttpRequest" />
 			<methods>
 				<include name="runMethod"></include>
 			</methods>

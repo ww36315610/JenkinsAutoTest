@@ -15,7 +15,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.config.*;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -24,10 +23,10 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.util.StringUtils;
 
 public class HttpClientImp implements HttpClientDao {
-    static HttpClient client = new DefaultHttpClient();
+//    static HttpClient client = new DefaultHttpClient();
 
     @Override
-    public JSONArray getJsonArray(String httpUrl, Map<String, Object> header) {
+    public JSONArray getJsonArray(HttpClient client, String httpUrl, Map<String, Object> header) {
         JSONArray jsonArry = null;
         HttpGet get = new HttpGet(httpUrl);
         for (Map.Entry<String, Object> entry : header.entrySet()) {
@@ -48,7 +47,7 @@ public class HttpClientImp implements HttpClientDao {
     }
 
     @Override
-    public JSONArray postJsonArray(String httpUrl, Map<String, Object> header, String json) {
+    public JSONArray postJsonArray(HttpClient client,String httpUrl, Map<String, Object> header, String json) {
         JSONArray jsonArry = null;
         HttpPost post = new HttpPost(httpUrl);
         header.forEach((k, v) -> {
@@ -73,7 +72,7 @@ public class HttpClientImp implements HttpClientDao {
     }
 
     @Override
-    public JSONArray postJsonArray(String httpUrl, Map<String, Object> header, List<Object> listKey, List<Object> listValue) {
+    public JSONArray postJsonArray(HttpClient client, String httpUrl, Map<String, Object> header, List<Object> listKey, List<Object> listValue) {
         JSONArray jsonArry = null;
         HttpPost post = new HttpPost(httpUrl);
         //设置超时时间 20s--不起作用
@@ -114,17 +113,17 @@ public class HttpClientImp implements HttpClientDao {
     }
 
     @Override
-    public JSONObject getJsonObject(String httpUrl, Map<String, Object> header) {
+    public JSONObject getJsonObject(HttpClient client, String httpUrl, Map<String, Object> header) {
         return null;
     }
 
     @Override
-    public JSONObject postJsonObject(String httpUrl, Map<String, Object> header, String json) {
+    public JSONObject postJsonObject(HttpClient client, String httpUrl, Map<String, Object> header, String json) {
         return null;
     }
 
     @Override
-    public JSONObject postJsonObject(String httpUrl, Map<String, Object> header, List<Object> listKey, List<Object> listValue) {
+    public JSONObject postJsonObject(HttpClient client, String httpUrl, Map<String, Object> header, List<Object> listKey, List<Object> listValue) {
         return null;
     }
 

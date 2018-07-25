@@ -69,6 +69,7 @@ public class CsvReadTools {
                 everyLine = makeCase(line);
                 if (!"".equals(everyLine))
                     allString.add(everyLine);
+//                System.out.println(everyLine);
             }
             System.out.println("csv表格中所有行数：" + allString.size());
         } catch (IOException e) {

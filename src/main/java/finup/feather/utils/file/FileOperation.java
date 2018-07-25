@@ -9,8 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class FileOperation {
-	static String fileName = FileOperation.class.getClassLoader().getResource("mongoBason.txt").getPath();
-	static String fileA = "C:\\Users\\cnbjpuhui-5051a\\Desktop\\Desktop\\CreditReport.json";
+//	static String fileName = FileOperation.class.getClassLoader().getResource("mongoBason.txt").getPath();
 
 	// 一次读取一行
 	public static List<JSONArray> readFileByLines(String fileName) {
@@ -91,7 +90,7 @@ public class FileOperation {
 	/**
 	 * 以字符为单位读取文件，常用于读文本，数字等类型的文件
 	 */
-	public static JSONArray readFileByChars() {
+	public static JSONArray readFileByChars(String fileName) {
 		List<Object> list = new ArrayList<Object>();
 		File file = new File(fileName);
 		Reader reader = null;
@@ -161,10 +160,10 @@ public class FileOperation {
 
 	public static void main(String[] args) {
 		FileOperation fr = new FileOperation();
-		List<JSONArray> list = fr.readFileByLines(fileA);
-		Iterator iter = list.iterator();
-		while (iter.hasNext()) {
-			System.out.println(iter.next());
-		}
+//		List<JSONArray> list = fr.readFileByLines(fileA);
+//		Iterator iter = list.iterator();
+//		while (iter.hasNext()) {
+//			System.out.println(iter.next());
+//		}
 	}
 }
