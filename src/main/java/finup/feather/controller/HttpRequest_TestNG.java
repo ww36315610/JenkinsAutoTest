@@ -88,6 +88,7 @@ public class HttpRequest_TestNG extends ConfigTools {
         for (int i = 0; i < 1; i++) {
             new Thread(new Runnable() {
                 public void run() {
+
                     hr.httpRunnerAssert();
                 }
             }).start();

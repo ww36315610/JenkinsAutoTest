@@ -29,8 +29,8 @@ public class HttpRequest extends ConfigTools {
     private static final String oauthURL;
     private static final String clientId;
     private static final String cientSecret;
+    private static final String fileOut;
     private static final String resultMap = "resultMap";
-    private static final String fileOut = "/Users/apple/Documents/linlin/log/";
     private static final String before = "api.finupgroup.com/cif-utc-rest-pre";
     private static final String after = "api.finupgroup.com/cif-utc-rest";
 
@@ -50,6 +50,8 @@ public class HttpRequest extends ConfigTools {
 
         //生产最新的log日志，量大  -测试所有接口
         fileCSV = "/Users/apple/Downloads/graylog-all_0628.csv";
+        //输入错误日志
+        fileOut = "/Users/apple/Documents/linlin/log/";
     }
 
     public static void main(String[] args) {
