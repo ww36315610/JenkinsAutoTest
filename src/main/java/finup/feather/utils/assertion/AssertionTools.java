@@ -36,30 +36,30 @@ public class AssertionTools {
         int castTimeLine = 0;
         if (jsonResultPre.size() > 0 && jsonResultLine.size() > 0) {
             if (jsonResultLine.getString("resultMap").contains("code#####")) {
-                FileOperation.writeFileTrue(filePath + "precode.txt", key + "::::" + json);
+                FileOperation.writeFileTrue(filePath + "precode.txt", json);
             } else if (jsonResultPre.getString("resultMap").contains("code#####")) {
-                FileOperation.writeFileTrue(filePath + "linecode.txt", key + "::::" + json);
+                FileOperation.writeFileTrue(filePath + "linecode.txt", json);
             } else {
                 castTimePre = Integer.parseInt(jsonResultPre.getString("castTime"));
                 castTimeLine = Integer.parseInt(jsonResultLine.getString("castTime"));
                 for (FilterEnum ef : FilterEnum.values()) {
                     if (key.contains(ef.toString())) {
-                        System.out.println(json);
+//                        System.out.println(json);
                         return Pair.of(castTimePre, castTimeLine);
                     }
                 }
                 if (jsonResultPre.getInteger("failCount") > 0 || jsonResultLine.getInteger("failCount") > 0) {
-                    FileOperation.writeFileTrue(filePath + "failCount.txt", key + "::::" + json);
+                    FileOperation.writeFileTrue(filePath + "failCount.txt", json);
                 } else {
                     String resultAssert = MapCompareTools.compareResult(jsonResultPre, jsonResultLine, resultMap) == "Same map" ? "True【" + json + "】" : "False【" + json + "】";
                     if (resultAssert.contains("False")) {
                         System.out.print(resultAssert);
                         System.out.print("---pree:::" + jsonResultPre.getString("resultMap"));
                         System.out.println("--line:::" + jsonResultLine.getString("resultMap"));
-                        FileOperation.writeFileTrue(filePath + "compare.txt", key + "::::" + json);
+                        FileOperation.writeFileTrue(filePath + "compare.txt", json);
                     } else {
-                        if (castTimeLine > 5000 || castTimePre > 5000) {
-                            FileOperation.writeFileTrue(filePath + "bigTime.txt", key + "::::" + json);
+                        if (castTimeLine > 10000 || castTimePre > 10000) {
+                            FileOperation.writeFileTrue(filePath + "bigTime.txt",json);
                         }
                     }
                 }
