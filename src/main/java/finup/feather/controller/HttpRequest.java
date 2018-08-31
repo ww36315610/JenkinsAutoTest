@@ -1,23 +1,16 @@
 package finup.feather.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import finup.feather.utils.assertion.AssertionTools;
 import finup.feather.utils.file.ConfigTools;
 import finup.feather.utils.file.CsvReadTools;
 import finup.feather.utils.http.HttpClientImp;
 import finup.feather.utils.http.Oauth;
-
 import finup.feather.utils.thread.ThreadPoolUtils;
-import jdk.management.resource.internal.inst.InitInstrumentation;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import org.testng.collections.Maps;
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -66,7 +59,6 @@ public class HttpRequest extends ConfigTools {
         }
     }
 
-
     int timePre = 0;
     int timeLine = 0;
     HttpClientImp hci = new HttpClientImp();
@@ -97,5 +89,6 @@ public class HttpRequest extends ConfigTools {
 
     public static List<String> getCase(String fileName) {
         return CsvReadTools.getDataFromCSV(fileName);
+//        return FileOperation.readFileByLineString(fileName);
     }
 }

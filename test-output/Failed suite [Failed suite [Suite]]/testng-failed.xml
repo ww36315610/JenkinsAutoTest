@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="3" name="Failed suite [Failed suite [Failed suite [Suite]]]" parallel="methods">
+  <listeners>
+    <listener class-name="finup.feather.utils.listenter.RetryListener"/>
+    <listener class-name="finup.feather.utils.listenter.TestngListener"/>
+    <listener class-name="finup.feather.utils.listenter.ExtentTestNGIReporterListener"/>
+    <listener class-name="finup.feather.utils.listenter.ExtentTestNGIPreporterListenerNew"/>
+  </listeners>
+  <test name="Api_Select(failed)(failed)(failed)" parallel="methods">
+    <classes>
+      <class name="finup.feather.controller.HttpRequest_TestNG_New">
+        <methods>
+          <include name="testMethod" invocation-numbers="0 4"/>
+        </methods>
+      </class> <!-- finup.feather.controller.HttpRequest_TestNG_New -->
+      <class name="finup.feather.controller.TestReport">
+        <methods>
+          <include name="before"/>
+        </methods>
+      </class> <!-- finup.feather.controller.TestReport -->
+    </classes>
+  </test> <!-- Api_Select(failed)(failed)(failed) -->
+  <test name="testReport(failed)(failed)(failed)" parallel="methods">
+    <classes>
+      <class name="finup.feather.controller.TestReport">
+        <methods>
+          <include name="runnerF1"/>
+          <include name="runnerF2"/>
+          <include name="before"/>
+        </methods>
+      </class> <!-- finup.feather.controller.TestReport -->
+    </classes>
+  </test> <!-- testReport(failed)(failed)(failed) -->
+</suite> <!-- Failed suite [Failed suite [Failed suite [Suite]]] -->

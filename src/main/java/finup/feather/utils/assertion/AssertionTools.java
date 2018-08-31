@@ -1,6 +1,7 @@
 package finup.feather.utils.assertion;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import finup.feather.bean.FilterEnum;
 import finup.feather.utils.file.FileOperation;
 import org.apache.commons.lang3.tuple.Pair;
@@ -35,36 +36,44 @@ public class AssertionTools {
         int castTimePre = 0;
         int castTimeLine = 0;
         if (jsonResultPre.size() > 0 && jsonResultLine.size() > 0) {
-            if (jsonResultLine.getString("resultMap").contains("code#####")) {
+            if(jsonResultPre.size() !=jsonResultLine.size()){
+                System.err.println(jsonResultPre);
+                System.err.println(jsonResultLine);
+                System.out.println(jsonResultPre.size()+"--"+jsonResultLine.size()+"--"+json);
+                FileOperation.writeFileTrue(filePath + "length.txt", json);
+            }else if (jsonResultLine.getString("resultMap").contains("code#####")) {
                 FileOperation.writeFileTrue(filePath + "precode.txt", json);
             } else if (jsonResultPre.getString("resultMap").contains("code#####")) {
                 FileOperation.writeFileTrue(filePath + "linecode.txt", json);
             } else {
                 castTimePre = Integer.parseInt(jsonResultPre.getString("castTime"));
                 castTimeLine = Integer.parseInt(jsonResultLine.getString("castTime"));
-                for (FilterEnum ef : FilterEnum.values()) {
-                    if (key.contains(ef.toString())) {
-//                        System.out.println(json);
-                        return Pair.of(castTimePre, castTimeLine);
-                    }
-                }
+//                for (FilterEnum ef : FilterEnum.values()) {
+//                    if (key.contains(ef.toString())) {
+//                        return Pair.of(castTimePre, castTimeLine);
+//                    }
+//                }
                 if (jsonResultPre.getInteger("failCount") > 0 || jsonResultLine.getInteger("failCount") > 0) {
                     FileOperation.writeFileTrue(filePath + "failCount.txt", json);
                 } else {
                     String resultAssert = MapCompareTools.compareResult(jsonResultPre, jsonResultLine, resultMap) == "Same map" ? "True【" + json + "】" : "False【" + json + "】";
                     if (resultAssert.contains("False")) {
+                        //Error for bug
+                        String preJson = JSONObject.toJSONString(jsonResultPre.getJSONObject("resultMap"), SerializerFeature.WriteMapNullValue);
+                        String lineJson = JSONObject.toJSONString(jsonResultLine.getJSONObject("resultMap"), SerializerFeature.WriteMapNullValue);
                         System.out.print(resultAssert);
-                        System.out.print("---pree:::" + jsonResultPre.getString("resultMap"));
-                        System.out.println("--line:::" + jsonResultLine.getString("resultMap"));
+                        System.out.print("---pree:::" + preJson);
+                        System.out.println("---line:::" + lineJson);
                         FileOperation.writeFileTrue(filePath + "compare.txt", json);
                     } else {
                         if (castTimeLine > 10000 || castTimePre > 10000) {
-                            FileOperation.writeFileTrue(filePath + "bigTime.txt",json);
+                            FileOperation.writeFileTrue(filePath + "bigTime.txt", json);
                         }
                     }
                 }
-//                System.out.println(castTimePre + "--" + castTimeLine + "[" + jsonResultPre + "]---[" + jsonResultLine + "]");
             }
+        }else{
+            FileOperation.writeFileTrue(filePath + "size.txt", json);
         }
         return Pair.of(castTimePre, castTimeLine);
     }

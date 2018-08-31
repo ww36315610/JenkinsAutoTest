@@ -12,6 +12,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import org.testng.collections.Maps;
 
 import java.util.List;
@@ -56,10 +59,12 @@ public class HttpRequest_TestNG extends ConfigTools {
     int timePre = 0;
     int timeLine = 0;
 
-    public void httpRunnerAssert() {
+
+    @Test
+    public void testMethod() {
         ThreadPoolExecutor pool = ThreadPoolUtils.getThreadPoolExecutor();
         List<String> listCase = getCase(fileCSV);
-        for (int i=0;i<listCase.size();i++) {
+        for (int i = 0; i < listCase.size(); i++) {
             final int a = i;
             pool.execute(() -> {
                 HttpClient client = new DefaultHttpClient();
@@ -74,67 +79,9 @@ public class HttpRequest_TestNG extends ConfigTools {
                 timePre = timePre + pair.getLeft();
                 timeLine = timeLine + pair.getRight();
                 if (Math.random() * 100 > 99) {
-                    System.out.println("【"+a+"】==PPPP::[" + timePre + "]--LLLL::[" + timeLine + "]");
+                    System.out.println("【" + a + "】==PPPP::[" + timePre + "]--LLLL::[" + timeLine + "]");
                 }
             });
         }
     }
-
-
-
-    public static void main(String[] args) {
-        HttpRequest_TestNG hr = new HttpRequest_TestNG();
-
-        for (int i = 0; i < 1; i++) {
-            new Thread(new Runnable() {
-                public void run() {
-
-                    hr.httpRunnerAssert();
-                }
-            }).start();
-        }
-
-//        hr.httpRunner();
-//        hr.outCaseKeys();
-
-    }
-
-
-    public void httpRunner() {
-        ThreadPoolExecutor pool = ThreadPoolUtils.getThreadPoolExecutor();
-        List<String> listCase = getCase(fileCSV);
-        for (String jsonList : listCase) {
-            pool.execute(() -> {
-                long before = System.currentTimeMillis();
-                HttpClient client = new DefaultHttpClient();
-                String key = jsonList.split("#####")[0];
-                String vaule = jsonList.split("#####")[1];
-                System.out.println("11111:::" + String.valueOf(System.currentTimeMillis() - before));
-                String uurrll = httpUrl + key.substring(key.lastIndexOf("/") + 1);
-                JSONArray jsonArray = hci.postJsonArray(client, uurrll, header, vaule);
-                System.out.println("22222:::" + String.valueOf(System.currentTimeMillis() - before));
-                System.out.println(jsonArray);
-            });
-        }
-    }
-
-    public void outCaseKeys() {
-        Map<String, Object> keyMaps = Maps.newHashMap();
-        Map<String, Object> valueMaps = Maps.newHashMap();
-        List<String> listCase = getCase(fileCSV);
-        listCase.forEach(l -> {
-            String key = l.split("#####")[0];
-            String vaule = l.split("#####")[1];
-            keyMaps.put(key, "kkk");
-            valueMaps.put(vaule, "vvv");
-        });
-        keyMaps.forEach((k, v) -> {
-            System.out.println(k);
-        });
-//        valueMaps.forEach((k, v) -> {
-//            System.out.println(k);
-//        });
-        System.out.println(valueMaps.size());
-    }
-
 }

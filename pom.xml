@@ -20,6 +20,57 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <!--Excell 3.11版本解决java.lang.NoSuchFieldError: RETURN_NULL_AND_BLANK问题-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>3.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-examples</artifactId>
+        <version>3.11</version>
+        </dependency>
+
+
+        <!-- logger -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -82,22 +133,19 @@
             <version>6.9.4</version>
             <!-- <scope>test</scope> -->
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>cif-bumble</groupId>-->
-            <!--<artifactId>canal-analyzer</artifactId>-->
-            <!--<version>1.1.2-SNAPSHOT</version>-->
-        <!--</dependency>-->
-        <!--Excell-->
+
+        <!--添加extentreports,用于报告-->
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>3.17</version>
+            <groupId>com.relevantcodes</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>2.41.1</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.14-beta1</version>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>3.0.3</version>
         </dependency>
+
     </dependencies>
 
 
@@ -121,6 +169,7 @@
                 <configuration>
                     <suiteXmlFiles>
                         <suiteXmlFile>Testng.xml</suiteXmlFile>
+                         <!--<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>-->
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

@@ -23,7 +23,9 @@ public class CsvReadTools {
 //        System.err.println(mapURL.keySet());
 
 //        String fileCSV = "/Users/apple/Downloads/graylog-search-result-absolute-2018-04-17T00_00_00.000Z-2018-04-17T03_00_00.000Z.csv";
-        String fileCSV = "/Users/apple/Downloads/graylog-search-result-relative-14400.csv";
+//        String fileCSV = "/Users/apple/Downloads/graylog-search-result-relative-14400.csv";
+        String fileCSV = "/Users/apple/Downloads/graylog-tidb_0625_big.csv";
+
         getCaseFromCSV(fileCSV);
     }
 
@@ -38,6 +40,7 @@ public class CsvReadTools {
         System.out.println(mapCase.keySet());
       return returnCaseList(mapCase);
     }
+
 
     /**
      * 读取CSV获取想要的list
@@ -160,5 +163,35 @@ public class CsvReadTools {
            }
          }
          return relistCase;
+    }
+
+    /**
+     * 未进行结构化处理的数据
+     * @param filePath
+     * @return
+     */
+    public static List<String> getDataFromCSVExcell(String filePath) {
+
+         // CSV文件路径
+        File csv = new File(filePath);
+        BufferedReader br = null;
+        List<String> allString = Lists.newArrayList();
+        try {
+            br = new BufferedReader(new FileReader(csv));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String line = "";
+        String everyLine = "";
+        try {
+            while ((line = br.readLine()) != null)  //读取到的内容给line变量
+            {
+               allString.add(line);
+            }
+            System.out.println("csv表格中所有行数：" + allString.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return allString;
     }
 }

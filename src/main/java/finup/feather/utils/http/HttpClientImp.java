@@ -59,7 +59,6 @@ public class HttpClientImp implements HttpClientDao {
             CloseableHttpResponse response = (CloseableHttpResponse) client.execute(post);
             //强制关闭
 //			response.close();
-
             jsonArry = getResponse(response);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
