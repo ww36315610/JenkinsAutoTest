@@ -18,7 +18,7 @@ public class TestngRetry implements IRetryAnalyzer {
         //外围文件配置最大运行次数
         //config = new ConfigReader(TestngListener.CONFIG);
         //maxRetryCount = config.getMaxRunCount();
-        maxRetryCount=1;
+        maxRetryCount=2;
         logger.info("maxRunCount=" + (maxRetryCount));
     }
 

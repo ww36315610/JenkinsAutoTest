@@ -7,20 +7,6 @@
     <listener class-name="finup.feather.utils.listenter.ExtentTestNGIReporterListener"/>
     <listener class-name="finup.feather.utils.listenter.ExtentTestNGIPreporterListenerNew"/>
   </listeners>
-  <test name="Api_Select(failed)" parallel="methods">
-    <classes>
-      <class name="finup.feather.controller.TestReport">
-        <methods>
-          <include name="before"/>
-        </methods>
-      </class> <!-- finup.feather.controller.TestReport -->
-      <class name="finup.feather.controller.HttpRequest_TestNG_New">
-        <methods>
-          <include name="testMethod" invocation-numbers="4 0 0 4"/>
-        </methods>
-      </class> <!-- finup.feather.controller.HttpRequest_TestNG_New -->
-    </classes>
-  </test> <!-- Api_Select(failed) -->
   <test name="testReport(failed)" parallel="methods">
     <classes>
       <class name="finup.feather.controller.TestReport">

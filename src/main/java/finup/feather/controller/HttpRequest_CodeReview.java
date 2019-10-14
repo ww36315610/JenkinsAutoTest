@@ -1,6 +1,7 @@
 package finup.feather.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import finup.feather.utils.assertion.AssertionTools;
 import finup.feather.utils.file.ConfigTools;
 import finup.feather.utils.file.CsvReadTools;
@@ -49,10 +50,21 @@ public class HttpRequest_CodeReview extends ConfigTools {
 //        fileCSV = "/Users/apple/Downloads/graylog-tidb_0625_big.csv";
 
         //最新的case
-//        fileCSV = "/Users/apple/Downloads/graylog-search-result-relative-7200.csv";
+        fileCSV = "/Users/apple/Downloads/graylog-search-result-relative-7200.csv";
+//        fileCSV = "/Users/apple/Downloads/graylog-search-result-relative-28800.csv";
+//
+//        fileCSV = "/Users/apple/Downloads/newlog20181225.csv";
+
 
         //文件遍历method参数
-        fileCSV = "/Users/apple/Documents/case/all_method.txt";
+//        fileCSV = "/Users/apple/Documents/case/all_method.txt";
+//        fileCSV = "/Users/apple/Documents/case/basicInfo.txt";
+//        fileCSV = "/Users/apple/Documents/case/moxie.txt";
+
+
+//        fileCSV = "/Users/apple/Documents/case/tidb.txt";
+
+
 //        fileCSV = "/Users/apple/Documents/linlin/log/bigTime.txt";
 //        fileCSV = "/Users/apple/Documents/linlin/log/ggg.txt";
 //        输入错误日志
@@ -65,7 +77,7 @@ public class HttpRequest_CodeReview extends ConfigTools {
         for (int i = 0; i < 1; i++) {
             new Thread(new Runnable() {
                 public void run() {
-                    for(int a=0;a<999;a++){
+                    for (int a = 0; a < 1; a++) {
                         hr.httpRunnerAssert();
                     }
                 }
@@ -86,7 +98,30 @@ public class HttpRequest_CodeReview extends ConfigTools {
                 HttpClient client = new DefaultHttpClient();
                 String key = listCase.get(a).split("#####")[0];
                 String vaule = listCase.get(a).split("#####")[1];
+                //替换掉case中的resultId跟requestId
+                if (vaule.contains("requestId") || vaule.contains("resultId")) {
+                    JSONObject jsonRe = JSONObject.parseObject(vaule);
+                    jsonRe.remove("requestId");
+                    jsonRe.remove("resultId");
+                    vaule = JSONObject.toJSONString(jsonRe, SerializerFeature.WriteMapNullValue);
+                }
                 String uurrll = httpUrl + key.substring(key.lastIndexOf("/") + 1);
+//                此处为了测试切换tidb的标签用的
+//                String valueR= vaule.replace("\"3001\"","\"9999\"");
+//                if (valueR.contains("basic_qz-self-support")) return;
+//                JSONObject jsonPre = hci.postJsonArray(client, uurrll, header, valueR).getJSONObject(0);
+
+
+                //测试taskId含有pre的，灰度测试环境
+//                if (vaule.contains("4000") && vaule.contains("traceId") && key.contains("multiTagName")) {
+//                    JSONObject jsonTrasdId = JSONObject.parseObject(vaule);
+//                    String transId = jsonTrasdId.getJSONObject("params").getString("traceId") + ":finup_lend._pre";
+//                    jsonTrasdId.getJSONObject("params").put("traceId", transId);
+//                    vaule = jsonTrasdId.toString();
+//                    System.out.println(vaule);
+//                }
+
+
                 JSONObject jsonPre = hci.postJsonArray(client, uurrll, header, vaule).getJSONObject(0);
                 uurrll = uurrll.replace(before, after);
                 JSONObject jsonLine = hci.postJsonArray(client, uurrll, header, vaule).getJSONObject(0);
@@ -94,9 +129,10 @@ public class HttpRequest_CodeReview extends ConfigTools {
                 Pair<Integer, Integer> pair = assertionTools.assertJSON();
                 timePre = timePre + pair.getLeft();
                 timeLine = timeLine + pair.getRight();
-
-//               System.out.println("----"+jsonPre);
-//            System.out.println("----"+jsonLine);
+                String jsonPreString = JSONObject.toJSONString(jsonPre, SerializerFeature.WriteMapNullValue);
+                String jjsonLineString = JSONObject.toJSONString(jsonLine, SerializerFeature.WriteMapNullValue);
+//               System.out.println("----"+jsonPreString);
+//               System.out.println("----"+jjsonLineString);
                 if (Math.random() * 100 > 99) {
                     System.out.println("【" + a + "】==PPPP::[" + timePre + "]--LLLL::[" + timeLine + "]");
                 }
@@ -105,7 +141,9 @@ public class HttpRequest_CodeReview extends ConfigTools {
     }
 
     public static List<String> getCase(String fileName) {
-//        return CsvReadTools.getDataFromCSV(fileName);
-        return FileOperation.readFileByLineString(fileName);
+        if(fileName.endsWith(".txt"))
+            return FileOperation.readFileByLineString(fileName);
+        else
+            return CsvReadTools.getDataFromCSV(fileName);
     }
 }

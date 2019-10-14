@@ -2,6 +2,7 @@
 <!-- 设置parallel=methods多线程执行method 设置执行线程数量-->
 <suite name="Suite" parallel="methods" thread-count="3">
 
+
     <test name="Api_Select">
         <classes>
             <!-- 调用@Test执行类 -->
@@ -10,27 +11,31 @@
                 <include name="testMethod"></include>
             </methods>
         </classes>
+    </test>
 
+
+    <!--<test name="testReport">-->
         <!--<classes>-->
-        <!--<class name="com.cif.restfull_jenkins.AssertClass" />-->
-        <!--<methods>-->
-        <!--<include name="method"></include>-->
-        <!--</methods>-->
+            <!--&lt;!&ndash; 调用@Test执行类 &ndash;&gt;-->
+            <!--<class name="finup.feather.controller.TestReport"/>-->
+            <!--<methods>-->
+                <!--<include name="runnerF1"></include>-->
+                <!--<include name="runnerF2"></include>-->
+                <!--<include name="runnerT1"></include>-->
+                <!--<include name="runnerT2"></include>-->
+            <!--</methods>-->
         <!--</classes>-->
-    </test>
+    <!--</test>-->
 
-    <test name="testReport">
-        <classes>
-            <!-- 调用@Test执行类 -->
-            <class name="finup.feather.controller.TestReport"/>
-            <methods>
-                <include name="runnerF1"></include>
-                <include name="runnerF2"></include>
-                <include name="runnerT1"></include>
-                <include name="runnerT2"></include>
-            </methods>
-        </classes>
-    </test>
+    <!--<test name="testAsync">-->
+        <!--<classes>-->
+            <!--&lt;!&ndash; 调用@Test执行类 &ndash;&gt;-->
+            <!--<class name="finup.feather.controller.AsyncTest"/>-->
+            <!--&lt;!&ndash;<methods>&ndash;&gt;-->
+                <!--&lt;!&ndash;<include name="runHttpPostData"></include>&ndash;&gt;-->
+            <!--&lt;!&ndash;</methods>&ndash;&gt;-->
+        <!--</classes>-->
+    <!--</test>-->
     <listeners>
         <listener class-name="finup.feather.utils.listenter.RetryListener"></listener>
         <listener class-name="finup.feather.utils.listenter.TestngListener"></listener>

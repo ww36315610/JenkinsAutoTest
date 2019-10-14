@@ -61,9 +61,9 @@ public class AssertionTools {
                         //Error for bug
                         String preJson = JSONObject.toJSONString(jsonResultPre.getJSONObject("resultMap"), SerializerFeature.WriteMapNullValue);
                         String lineJson = JSONObject.toJSONString(jsonResultLine.getJSONObject("resultMap"), SerializerFeature.WriteMapNullValue);
-                        System.out.print(resultAssert);
-                        System.out.print("---pree:::" + preJson);
-                        System.out.println("---line:::" + lineJson);
+                        System.err.print(resultAssert);
+                        System.err.print("---pree:::" + preJson);
+                        System.err.println("---line:::" + lineJson);
                         FileOperation.writeFileTrue(filePath + "compare.txt", json);
                     } else {
                         if (castTimeLine > 10000 || castTimePre > 10000) {

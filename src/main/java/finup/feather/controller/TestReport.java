@@ -1,6 +1,7 @@
 package finup.feather.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import finup.feather.utils.listenter.TestngRetry;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -33,4 +34,18 @@ public class TestReport {
         Assert.assertTrue(true);
     }
 
+
+    public static void main(String[] args) {
+        String param = "{\"aa\":\"AA\",\"bb\":{\"cc\":\"CC\"}}";
+        JSONObject jsonObject = JSONObject.parseObject(param);
+        System.out.println("111"+jsonObject);
+        jsonObject.getJSONObject("bb").put("cc","PPPPPP");
+        System.out.println("222"+jsonObject);
+        JSONObject rep = jsonObject.getJSONObject("bb");
+        System.out.println("bbb"+rep);
+        jsonObject.put("rr",rep.toJSONString());
+        System.out.println("333"+jsonObject);
+        jsonObject.remove("bb");
+        System.out.println("444"+jsonObject);
+    }
 }

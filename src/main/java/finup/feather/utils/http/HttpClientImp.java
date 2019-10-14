@@ -2,6 +2,7 @@ package finup.feather.utils.http;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,8 @@ public class HttpClientImp implements HttpClientDao {
 //			response.close();
             jsonArry = getResponse(response);
         } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (ConnectException e){
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

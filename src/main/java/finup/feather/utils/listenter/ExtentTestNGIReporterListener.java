@@ -11,7 +11,11 @@ import java.util.Map;
 
 public class ExtentTestNGIReporterListener implements IReporter {
     private ExtentReports extent;
-
+//    private static final String OUTPUT_FOLDER = "test-output/report/new/";
+//    private static final String OUTPUT_FOLDER = "test-output/report/";
+//    private static final String OUTPUT_File = "test-output/report/index.html";
+    private static final String OUTPUT_FOLDER = "/Users/apple/Desktop/tb/";
+private static final String OUTPUT_File = "/Users/apple/Desktop/tb/index.html";
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory){
         /**
@@ -20,7 +24,9 @@ public class ExtentTestNGIReporterListener implements IReporter {
          * 最新运行的用例结果在第一个
          * online  报告的一些样式文件需从网络下载，生成的报告文件小   offline  样式及js文件不会从网络下载，生成在文件中
          */
-        extent = new ExtentReports("test-output/report/ExtentReport.html",
+
+
+        extent = new ExtentReports(OUTPUT_File,
                 true
                 , DisplayOrder.NEWEST_FIRST
                 , NetworkMode.OFFLINE
@@ -28,7 +34,7 @@ public class ExtentTestNGIReporterListener implements IReporter {
 //        extent.x("10.202.2.1",27017);
 //        extent.addSystemInfo("Host Name", "Anshoo");
 //        extent.addSystemInfo("Environment", "QA");
-        extent.startReporter(ReporterType.DB, "test-output/report/"); //生成本地的DB数据文件,保存路径
+        extent.startReporter(ReporterType.DB, OUTPUT_FOLDER); //生成本地的DB数据文件,保存路径
         for (ISuite suite : suites) {
             Map<String, ISuiteResult> result = suite.getResults();
             for (ISuiteResult r : result.values()) {

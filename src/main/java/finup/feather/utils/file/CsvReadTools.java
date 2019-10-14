@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CsvReadTools {
-    static Map<String,String> mapURL = Maps.newHashMap();
+    static Map<String, String> mapURL = Maps.newHashMap();
 
     public static void main(String[] args) {
 //        List<String> listCSV = getDataFromCSV("/Users/apple/Downloads/graylog-search-result-absolute-2018-04-17T00_00_00.000Z-2018-04-17T03_00_00.000Z.csv");
@@ -22,29 +22,34 @@ public class CsvReadTools {
 ////        returnCaseList(mapCase);
 //        System.err.println(mapURL.keySet());
 
-//        String fileCSV = "/Users/apple/Downloads/graylog-search-result-absolute-2018-04-17T00_00_00.000Z-2018-04-17T03_00_00.000Z.csv";
-//        String fileCSV = "/Users/apple/Downloads/graylog-search-result-relative-14400.csv";
-        String fileCSV = "/Users/apple/Downloads/graylog-tidb_0625_big.csv";
+        //生产最新的log日志，量大  -测试所有接口
+//       String fileCSV = "/Users/apple/Downloads/graylog-all_0628.csv";
+        //oneTagName
+//        String fileCSV = "/Users/apple/Downloads/graylog-tidb_0625_big.csv";
 
+        //最新的case
+        String fileCSV = "/Users/apple/Downloads/graylog-search-result-relative-7200.csv";
         getCaseFromCSV(fileCSV);
     }
 
     /**
      * 用于组装这些逻辑关系，方便调用
+     *
      * @param filePath
      * @return
      */
     public static List<String> getCaseFromCSV(String filePath) {
         List<String> listCSV = getDataFromCSV(filePath);
-        Map<String,List<String>> mapCase = makeRealCase(listCSV);
+        Map<String, List<String>> mapCase = makeRealCase(listCSV);
         System.out.println(mapCase.keySet());
-      return returnCaseList(mapCase);
+        return returnCaseList(mapCase);
     }
 
 
     /**
      * 读取CSV获取想要的list
      * 依赖makeCase()处理每一行
+     *
      * @param filePath
      * @return
      */
@@ -83,6 +88,7 @@ public class CsvReadTools {
 
     /**
      * 过滤每一行，然后返回key是方法名###value是json实体的 String字符串
+     *
      * @param line
      * @return
      */
@@ -100,8 +106,8 @@ public class CsvReadTools {
             bodySub = bodySub.replace("\"\"", "\"");
             String[] bodySp = bodySub.split("=");
 
-            bodySp[1] = bodySp[1].substring(0, bodySp[1].lastIndexOf(",")).replace(" ","");
-            bodySp[3] = bodySp[3].substring(0, bodySp[3].lastIndexOf(",")).replace(" ","");
+            bodySp[1] = bodySp[1].substring(0, bodySp[1].lastIndexOf(",")).replace(" ", "");
+            bodySp[3] = bodySp[3].substring(0, bodySp[3].lastIndexOf(",")).replace(" ", "");
 
             mapURL.put(bodySp[1], bodySp[3]);
             try {
@@ -126,6 +132,7 @@ public class CsvReadTools {
     /**
      * 根据list 返回 map
      * key来自mapURL
+     *
      * @param list 来自getDataFromCSV()（/api/v1/tagType###{"params":"123123"}）
      * @return
      */
@@ -133,7 +140,7 @@ public class CsvReadTools {
         Map<String, List<String>> map = Maps.newHashMap();
         for (String mKey : mapURL.keySet()) {
             List<String> listValue = Lists.newArrayList();
-        for (String line : list) {
+            for (String line : list) {
                 String key = line.split("###")[0];
                 String af = line.split("###")[1];
                 if (key.equals(mKey)) {
@@ -144,35 +151,37 @@ public class CsvReadTools {
             map.put(mKey, listValue);
         }
         return map;
-}
+    }
 
     /**
      * 正式组装list-case
      * 会按照现在的case模版组装case  pre.method_1=json
-     * @param mapKV  来自makeRealCase()
+     *
+     * @param mapKV 来自makeRealCase()
      * @return
      */
     private static List<String> returnCaseList(Map<String, List<String>> mapKV) {
         List<String> relistCase = Lists.newArrayList();
-        for(String key :mapKV.keySet()){
-        List<String>  listCase  = mapKV.get(key);
-           for(int i=1;i<listCase.size();i++){
-               String caseSplit = "pre."+key.substring(key.lastIndexOf("/")+1)+"_"+i+"="+listCase.get(i).toString();
+        for (String key : mapKV.keySet()) {
+            List<String> listCase = mapKV.get(key);
+            for (int i = 1; i < listCase.size(); i++) {
+                String caseSplit = "pre." + key.substring(key.lastIndexOf("/") + 1) + "_" + i + "=" + listCase.get(i).toString();
 //               System.out.println(caseSplit);
-               relistCase.add(caseSplit);
-           }
-         }
-         return relistCase;
+                relistCase.add(caseSplit);
+            }
+        }
+        return relistCase;
     }
 
     /**
      * 未进行结构化处理的数据
+     *
      * @param filePath
      * @return
      */
     public static List<String> getDataFromCSVExcell(String filePath) {
 
-         // CSV文件路径
+        // CSV文件路径
         File csv = new File(filePath);
         BufferedReader br = null;
         List<String> allString = Lists.newArrayList();
@@ -186,7 +195,7 @@ public class CsvReadTools {
         try {
             while ((line = br.readLine()) != null)  //读取到的内容给line变量
             {
-               allString.add(line);
+                allString.add(line);
             }
             System.out.println("csv表格中所有行数：" + allString.size());
         } catch (IOException e) {
